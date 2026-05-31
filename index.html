@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=(), usb=(), payment=(), autoplay=()">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="description" content="Портфолио программиста Александра Михайлова. Проекты на Python, C#, C++: генератор паролей, табличный редактор, калькулятор с историей, игра 'Угадай число'.">
+    <meta name="keywords" content="программист, портфолио, python, c#, c++">
+    <title>Александр · Портфолио программиста</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            transition: background 0.3s, color 0.2s;
+            scroll-behavior: smooth;
+        }
+        :root {
+            --bg-primary: #0b0f1a;
+            --bg-secondary: #11161f;
+            --card-bg: #161e2c;
+            --card-border: #253244;
+            --text-primary: #eef2ff;
+            --text-secondary: #9aa6c2;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --accent-glow: rgba(59,130,246,0.2);
+            --header-bg: rgba(11,15,26,0.85);
+            --tag-bg: #1e2a3a;
+            --transition: all 0.25s ease;
+        }
+        body.light {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-glow: rgba(37,99,235,0.1);
+            --header-bg: rgba(255,255,255,0.92);
+            --tag-bg: #e2e8f0;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+        /* Шапка (ПК и планшет) */
+        header {
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(12px);
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--card-border);
+            z-index: 100;
+            padding: 1rem 0;
+        }
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .logo a {
+            font-size: 1.7rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition);
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+        .nav-links a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        .theme-toggle {
+            background: var(--tag-bg);
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            color: var(--text-primary);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: white;
+        }
+        /* Герой */
+        .hero {
+            padding: 5rem 0 3rem;
+            text-align: center;
+        }
+        .avatar-icon {
+            font-size: 4rem;
+            background: var(--card-bg);
+            width: 96px;
+            height: 96px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 60px;
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--accent);
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ffffff, #94a3f8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        body.light .hero h1 {
+            background: linear-gradient(135deg, #0f172a, #2563eb);
+            background-clip: text;
+        }
+        .hero .badge {
+            display: inline-block;
+            background: var(--tag-bg);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        .hero p {
+            max-width: 700px;
+            margin: 1.2rem auto;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            padding: 0.8rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+        .github-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+        }
+        /* Заголовки секций */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+        }
+        /* Сетка проектов (ПК – 2-3 колонки) */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.3);
+        }
+        .card-header {
+            padding: 1.5rem 1.5rem 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .card-header i {
+            font-size: 2.4rem;
+            color: var(--accent);
+        }
+        .card-header h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        .tech-stack {
+            padding: 0 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 0.8rem 0;
+        }
+        .tech {
+            background: var(--tag-bg);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .project-description {
+            padding: 0 1.5rem;
+            color: var(--text-secondary);
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        .feature-list {
+            padding: 0 1.5rem;
+            list-style: none;
+            margin: 1rem 0;
+            flex-grow: 1;
+        }
+        .feature-list li {
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        .feature-list li i {
+            color: var(--accent);
+            font-size: 0.85rem;
+            width: 20px;
+        }
+        .card-footer {
+            padding: 1rem 1.5rem 1.5rem;
+        }
+        .repo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-secondary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: 1px solid var(--card-border);
+        }
+        .repo-link:hover {
+            background: var(--accent);
+            color: white;
+        }
+        .skills-section {
+            background: var(--bg-secondary);
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+        .skills-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .skill-item {
+            background: var(--card-bg);
+            padding: 0.6rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: 1px solid var(--card-border);
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem 0 1.5rem;
+            border-top: 1px solid var(--card-border);
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .info-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin: 2rem 0 1rem;
+        }
+        .info-card {
+            background: var(--card-bg);
+            border-radius: 1.2rem;
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--card-border);
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        /* Cookie баннер (ПК) */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border-top: 1px solid var(--accent);
+            padding: 1.2rem 2rem;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            font-size: 0.9rem;
+        }
+        .cookie-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.8rem;
+        }
+        .cookie-buttons button {
+            background: var(--tag-bg);
+            border: 1px solid var(--card-border);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .cookie-buttons button:hover {
+            background: var(--accent);
+            color: white;
+        }
+        .modal-settings {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            max-width: 500px;
+            width: 90%;
+            padding: 2rem;
+            position: relative;
+            border: 1px solid var(--accent);
+        }
+        .cookie-category {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .close-settings {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /*  АДАПТАЦИЯ ДЛЯ ПЛАНШЕТОВ И ТЕЛЕФОНОВ*/
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 24px;
+            }
+            .projects-grid {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Уменьшаем отступы, шрифты, делаем одну колонку */
+            .container {
+                padding: 0 20px;
+            }
+            header {
+                padding: 0.7rem 0;
+            }
+            .logo a {
+                font-size: 1.3rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+            /* Кнопка темы на телефоне: круглая, без текста */
+            .theme-toggle span {
+                display: none;
+            }
+            .theme-toggle {
+                padding: 0.4rem;
+                border-radius: 50%;
+                width: 38px;
+                height: 38px;
+                justify-content: center;
+            }
+            .hero {
+                padding: 2.5rem 0 1.5rem;
+            }
+            .avatar-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2.8rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero .badge {
+                font-size: 0.75rem;
+            }
+            .hero p {
+                font-size: 0.9rem;
+                margin: 0.8rem auto;
+            }
+            .github-btn {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.85rem;
+            }
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.2rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .card-header {
+                padding: 1rem 1rem 0.2rem;
+            }
+            .card-header i {
+                font-size: 1.8rem;
+            }
+            .card-header h3 {
+                font-size: 1.3rem;
+            }
+            .tech-stack {
+                padding: 0 1rem;
+            }
+            .tech {
+                font-size: 0.7rem;
+            }
+            .project-description {
+                padding: 0 1rem;
+                font-size: 0.85rem;
+            }
+            .feature-list {
+                padding: 0 1rem;
+            }
+            .feature-list li {
+                font-size: 0.8rem;
+            }
+            .card-footer {
+                padding: 0.5rem 1rem 1rem;
+            }
+            .repo-link {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
+            .skills-section {
+                padding: 1.2rem;
+                margin: 1.5rem 0;
+            }
+            .skill-item {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
+            .info-cards {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .info-card {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+            .footer {
+                padding: 1rem 0;
+                font-size: 0.75rem;
+            }
+            .cookie-consent {
+                padding: 0.8rem 1rem;
+                font-size: 0.8rem;
+            }
+            .cookie-buttons button {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-flex {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-flex">
+        <div class="logo"><a href="#">Alexan1der273<span style="color: var(--accent);">.dev</span></a></div>
+        <div class="nav-links">
+            <a href="#projects">Проекты</a>
+            <a href="#skills">Навыки</a>
+            <a href="https://github.com/Alexan1der273" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+            <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i> <span id="themeText">Тёмная</span></button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <section class="hero">
+            <div class="avatar-icon"><i class="fas fa-code" aria-hidden="true"></i></div>
+            <h1>Александр Михайлов</h1>
+            <div class="badge"><i class="fas fa-terminal"></i> Desktop-разработчик · Python / C# / C++</div>
+            <p>Создаю надёжные десктопные приложения, консольные утилиты и игры. Открытый код.</p>
+            <a href="https://github.com/Alexan1der273" target="_blank" rel="noopener noreferrer" class="github-btn"><i class="fab fa-github"></i> github.com/Alexan1der273</a>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title"><i class="fas fa-laptop-code" style="margin-right: 12px;"></i> Избранные проекты</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="card-header"><i class="fas fa-key"></i><h3>Password<br>Generator</h3></div>
+                    <div class="tech-stack"><span class="tech">Python</span><span class="tech">tkinter</span><span class="tech">pyperclip</span></div>
+                    <div class="project-description">Генератор криптостойких паролей с GUI и индикатором энтропии.</div>
+                    <ul class="feature-list"><li><i class="fas fa-check-circle"></i> Длина 4–32</li><li><i class="fas fa-check-circle"></i> Выбор типов символов</li><li><i class="fas fa-chart-line"></i> Индикатор сложности</li><li><i class="fas fa-eye"></i> Показ/скрытие пароля</li></ul>
+                    <div class="card-footer"><a href="https://github.com/Alexan1der273/password_generator" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="fab fa-github"></i> Исходный код</a></div>
+                </div>
+                <div class="project-card">
+                    <div class="card-header"><i class="fas fa-table"></i><h3>Tabular<br>Editor</h3></div>
+                    <div class="tech-stack"><span class="tech">C#</span><span class="tech">.NET WinForms</span><span class="tech">CSV</span></div>
+                    <div class="project-description">Редактор таблиц CSV с поддержкой тёмной/светлой темы.</div>
+                    <ul class="feature-list"><li><i class="fas fa-file-csv"></i> Загрузка / сохранение CSV</li><li><i class="fas fa-plus-circle"></i> Добавление/удаление строк/столбцов</li><li><i class="fas fa-moon"></i> Переключение тем</li><li><i class="fas fa-highlighter"></i> Подсветка выбранного столбца</li></ul>
+                    <div class="card-footer"><a href="https://github.com/Alexan1der273/TabularEditor" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="fab fa-github"></i> Исходный код</a></div>
+                </div>
+                <div class="project-card">
+                    <div class="card-header"><i class="fas fa-calculator"></i><h3>Calculator<br>History</h3></div>
+                    <div class="tech-stack"><span class="tech">C#</span><span class="tech">WinForms</span><span class="tech">JSON</span></div>
+                    <div class="project-description">Калькулятор с сохранением истории операций в JSON.</div>
+                    <ul class="feature-list"><li><i class="fas fa-plus-minus"></i> Базовые операции</li><li><i class="fas fa-history"></i> История с датой/временем</li><li><i class="fas fa-save"></i> Автосохранение в JSON</li><li><i class="fas fa-undo-alt"></i> Кнопки C, ⌫, ±</li></ul>
+                    <div class="card-footer"><a href="https://github.com/Alexan1der273/CalculatorHistoryApp" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="fab fa-github"></i> Исходный код</a></div>
+                </div>
+                <div class="project-card">
+                    <div class="card-header"><i class="fas fa-gamepad"></i><h3>Guess the<br>Number</h3></div>
+                    <div class="tech-stack"><span class="tech">C++</span><span class="tech">Консоль</span><span class="tech">C++11</span></div>
+                    <div class="project-description">Консольная игра «Угадай число» с рекордом в файле.</div>
+                    <ul class="feature-list"><li><i class="fas fa-dice-d6"></i> Число 1–100</li><li><i class="fas fa-arrow-up"></i><i class="fas fa-arrow-down"></i> Подсказки «Больше/Меньше»</li><li><i class="fas fa-trophy"></i> Рекорд в records.txt</li><li><i class="fas fa-redo-alt"></i> Повторная игра</li></ul>
+                    <div class="card-footer"><a href="https://github.com/Alexan1der273/guess-the-number-cpp" target="_blank" rel="noopener noreferrer" class="repo-link"><i class="fab fa-github"></i> Исходный код</a></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="info-cards">
+            <div class="info-card"><i class="fas fa-calendar-alt"></i> <strong>Password Generator</strong> — обновление: 01.05.2026</div>
+            <div class="info-card"><i class="fas fa-calendar-alt"></i> <strong>TabularEditor</strong> — обновление: 28.02.2026</div>
+            <div class="info-card"><i class="fas fa-calendar-alt"></i> <strong>CalculatorHistoryApp</strong> — обновление: 30.05.2026</div>
+            <div class="info-card"><i class="fas fa-calendar-alt"></i> <strong>Guess the Number</strong> — обновление: 30.05.2026</div>
+        </div>
+
+        <section id="skills">
+            <div class="skills-section">
+                <div style="display: flex; align-items: center; gap: 12px;"><i class="fas fa-microchip" style="font-size: 2rem; color: var(--accent);"></i><h2 style="font-size: 1.8rem;">Технологический стек</h2></div>
+                <div class="skills-flex">
+                    <span class="skill-item"><i class="fab fa-python"></i> Python 3.14+</span>
+                    <span class="skill-item"><i class="fas fa-window-maximize"></i> Tkinter / GUI</span>
+                    <span class="skill-item"><i class="fas fa-code"></i> C# / .NET WinForms</span>
+                    <span class="skill-item"><i class="fas fa-database"></i> JSON (Newtonsoft.Json)</span>
+                    <span class="skill-item"><i class="fas fa-table"></i> Работа с CSV</span>
+                    <span class="skill-item"><i class="fas fa-gamepad"></i> C++ / C++11</span>
+                    <span class="skill-item"><i class="fab fa-git-alt"></i> Git / GitHub</span>
+                </div>
+                <p style="margin-top: 1.5rem;"><i class="fas fa-rocket"></i> Все репозитории открыты для предложений и улучшений.</p>
+            </div>
+        </section>
+
+        <div style="text-align: center; margin: 2rem 0 0;">
+            <a href="https://github.com/Alexan1der273?tab=repositories" target="_blank" rel="noopener noreferrer" style="background: var(--tag-bg); padding: 0.6rem 1.8rem; border-radius: 60px; display: inline-flex; gap: 10px; align-items: center; font-weight: 500;"><i class="fab fa-github"></i> Все репозитории на GitHub <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 sasha_mix </p>
+        <p style="margin-top: 8px;">
+            <i class="fas fa-envelope"></i>There is no mail &nbsp;|&nbsp;
+            <a href="privacy.html" target="_blank" rel="noopener noreferrer">Политика конфиденциальности</a> &nbsp;|&nbsp;
+            <a href="#" id="openCookieSettings">Настройки cookie</a>
+        </p>
+        <p style="margin-top: 12px; font-size: 0.8rem;">Сайт использует локальное хранилище для темы. Никакие персональные данные не собираются.</p>
+    </div>
+</footer>
+
+<div id="cookieBanner" class="cookie-consent" style="display: none;">
+    <div>🍪 Мы используем необходимые cookie (localStorage) для сохранения выбранной темы. Аналитические и маркетинговые cookie не используются. Вы можете управлять настройками.</div>
+    <div class="cookie-buttons">
+        <button id="acceptAllCookies" class="btn-primary">Принять все</button>
+        <button id="rejectNonEssential">Отклонить необязательные</button>
+        <button id="customizeCookies">Настроить</button>
+    </div>
+</div>
+
+<div id="cookieSettingsModal" class="modal-settings">
+    <div class="modal-content">
+        <span class="close-settings">&times;</span>
+        <h3>Настройка cookie</h3>
+        <div class="cookie-category">
+            <label><input type="checkbox" id="necessaryCookies" disabled checked> <strong>Необходимые cookie</strong></label>
+            <span style="font-size:0.8rem;">(localStorage для темы, нельзя отключить)</span>
+        </div>
+        <div class="cookie-category">
+            <label><input type="checkbox" id="analyticsCookies"> <strong>Аналитические / маркетинговые cookie</strong></label>
+            <span style="font-size:0.8rem;">(не используются)</span>
+        </div>
+        <div class="modal-buttons">
+            <button id="saveCookieSettings" class="save-btn">Сохранить настройки</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    function setTheme(theme) {
+        if (theme === 'light') { body.classList.add('light'); localStorage.setItem('portfolio-theme', 'light'); }
+        else { body.classList.remove('light'); localStorage.setItem('portfolio-theme', 'dark'); }
+        const isLight = body.classList.contains('light');
+        themeToggle.innerHTML = `<i class="fas ${isLight ? 'fa-sun' : 'fa-moon'}"></i> <span id="themeText">${isLight ? 'Светлая' : 'Тёмная'}</span>`;
+        const newSpan = document.getElementById('themeText');
+        if(newSpan) newSpan.innerText = isLight ? 'Светлая' : 'Тёмная';
+    }
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    setTheme(savedTheme === 'light' ? 'light' : 'dark');
+    themeToggle.addEventListener('click', () => setTheme(body.classList.contains('light') ? 'dark' : 'light'));
+
+    const banner = document.getElementById('cookieBanner');
+    const acceptAllBtn = document.getElementById('acceptAllCookies');
+    const rejectNonEssential = document.getElementById('rejectNonEssential');
+    const customizeBtn = document.getElementById('customizeCookies');
+    const settingsModal = document.getElementById('cookieSettingsModal');
+    const saveSettingsBtn = document.getElementById('saveCookieSettings');
+    const analyticsCheckbox = document.getElementById('analyticsCookies');
+    const openCookieSettingsLink = document.getElementById('openCookieSettings');
+    const closeSettings = document.querySelector('#cookieSettingsModal .close-settings');
+
+    function applyChoice(allowAnalytics) {
+        localStorage.setItem('cookie-consent-v2', 'accepted');
+        localStorage.setItem('analytics-consent', allowAnalytics ? 'granted' : 'denied');
+        localStorage.setItem('cookie-consent-date', new Date().toISOString());
+        banner.style.display = 'none';
+    }
+    function loadSettingsIntoModal() {
+        const savedAnalytics = localStorage.getItem('analytics-consent');
+        if(analyticsCheckbox) analyticsCheckbox.checked = (savedAnalytics === 'granted');
+    }
+    if (!localStorage.getItem('cookie-consent-v2')) {
+        banner.style.display = 'block';
+    } else {
+        banner.style.display = 'none';
+    }
+    acceptAllBtn.addEventListener('click', () => { applyChoice(true); if(analyticsCheckbox) analyticsCheckbox.checked = true; });
+    rejectNonEssential.addEventListener('click', () => { applyChoice(false); if(analyticsCheckbox) analyticsCheckbox.checked = false; });
+    customizeBtn.addEventListener('click', () => { loadSettingsIntoModal(); settingsModal.style.display = 'flex'; });
+    function closeSettingsModal() { settingsModal.style.display = 'none'; }
+    closeSettings.addEventListener('click', closeSettingsModal);
+    window.addEventListener('click', (e) => { if (e.target === settingsModal) closeSettingsModal(); });
+    saveSettingsBtn.addEventListener('click', () => { applyChoice(analyticsCheckbox.checked); closeSettingsModal(); });
+    openCookieSettingsLink.addEventListener('click', (e) => { e.preventDefault(); customizeBtn.click(); });
+
+    const cards = document.querySelectorAll('.project-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0px)'; observer.unobserve(entry.target); } });
+    }, { threshold: 0.1 });
+    cards.forEach(card => { card.style.opacity = '0'; card.style.transform = 'translateY(20px)'; card.style.transition = 'opacity 0.5s, transform 0.4s'; observer.observe(card); });
+})();
+</script>
+</body>
+</html>
