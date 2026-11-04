@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">SM logo</title>
+  <desc id="desc">Белый геометрический знак SM с орбитальной линией на чёрном фоне.</desc>
+
+  <defs>
+    <linearGradient id="orbit" x1="90" y1="390" x2="430" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8f8f8f"/>
+      <stop offset=".48" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#bdbdbd"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="#050505"/>
+
+  <!-- Back half of the orbit -->
+  <path d="M83 306
+           C105 151 252 73 386 130
+           C444 155 471 204 464 248"
+        fill="none" stroke="#777" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+
+  <!-- Monogram -->
+  <text x="256" y="313"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="190"
+        font-weight="900"
+        letter-spacing="-17"
+        fill="#fff">SM</text>
+
+  <!-- Front sweep of the orbit -->
+  <path d="M55 282
+           C118 389 299 427 421 324
+           C450 300 467 270 468 244"
+        fill="none" stroke="url(#orbit)" stroke-width="11" stroke-linecap="round"/>
+
+  <!-- Small orbital highlight -->
+  <circle cx="468" cy="244" r="8" fill="#fff"/>
+</svg>
